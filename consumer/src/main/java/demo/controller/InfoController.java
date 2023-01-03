@@ -1,15 +1,17 @@
 package demo.controller;
 
-import demo.service.InfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import xyz.service.InfoService;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class InfoController {
@@ -21,6 +23,9 @@ public class InfoController {
     @Autowired
     InfoService infoService;
 
+    @Autowired
+    RestTemplate restTemplate;
+
     @RequestMapping(path = "/info", method = RequestMethod.GET)
     public Map info() {
         HashMap<String, String> map = new HashMap<>();
@@ -31,9 +36,14 @@ public class InfoController {
 
     @RequestMapping(path = "/consumer", method = RequestMethod.GET)
     public String consumer() {
-        //ResponseEntity<String> forEntity = restTemplate.getForEntity("http://SERVICE/info", String.class);
-        //return forEntity.getBody();
+        ResponseEntity<String> forEntity = restTemplate.getForEntity("http://SERVICE/info", String.class);
+        return forEntity.getBody();
+    }
+
+    @RequestMapping(path = "/feign", method = RequestMethod.GET)
+    public String feign() {
         String s = infoService.info();
+        int i = 1 / 0;
         return s;
     }
 }
