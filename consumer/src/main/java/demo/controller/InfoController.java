@@ -1,9 +1,5 @@
 package demo.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 import xyz.service.InfoService;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,8 +19,8 @@ public class InfoController {
     @Autowired
     InfoService infoService;
 
-    @Autowired
-    RestTemplate restTemplate;
+    //@Autowired
+    //RestTemplate restTemplate;
 
     @RequestMapping(path = "/info", method = RequestMethod.GET)
     public Map info() {
@@ -34,11 +30,11 @@ public class InfoController {
         return map;
     }
 
-    @RequestMapping(path = "/consumer", method = RequestMethod.GET)
-    public String consumer() {
-        ResponseEntity<String> forEntity = restTemplate.getForEntity("http://SERVICE/info", String.class);
-        return forEntity.getBody();
-    }
+    //@RequestMapping(path = "/consumer", method = RequestMethod.GET)
+    //public String consumer() {
+    //    ResponseEntity<String> forEntity = restTemplate.getForEntity("http://SERVICE/info", String.class);
+    //    return forEntity.getBody();
+    //}
 
     @RequestMapping(path = "/feign", method = RequestMethod.GET)
     public String feign() {

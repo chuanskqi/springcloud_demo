@@ -39,4 +39,33 @@
 
 
     </dependencies>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <activeProfile>dev</activeProfile>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <properties>
+                <activeProfile>prod</activeProfile>
+            </properties>
+            <id>prod</id>
+        </profile>
+    </profiles>
+
+
+    <build>
+        <resources>
+            <!--resource标签 会替换/src/main/resources 下的文件的@key@ 为maven profile定义的值-->
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 </project>
